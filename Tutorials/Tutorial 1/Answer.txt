@@ -1,0 +1,88 @@
+1.
+a. Class is a blueprint for an object. An object is an instance of the class. 
+
+b. So that it can be called without making an instance of the class. At the start of a Java program,
+there is no class object.
+
+c. 
+class Bruh {
+    private int m_bruh = 0;
+}
+
+class Hurb extends Bruh {
+    private int bruh() {
+        // cannot because m_bruh is private in Bruh
+        return m_bruh;
+    }
+}
+
+d. 
+i) To specify the implementation of a class without actually doing so. Also multiple inheritance.
+ii) 
+interface Bruh() {
+    private int bruh();
+}
+
+
+class Bruhhurb() {
+    private int bruh() {
+    	return 1;
+    }
+}
+iii) No wtf.
+
+e. 
+>I am in addOne. The value of i is 8
+>I am in myIntAddOne. The value of j is 8
+>I am in myOtherIntAddOne. The value of k is 8
+>The final value of i back in main is 7 //passed in as value
+>The final value of j back in main is 8 //passed in as reference
+>The final value of k back in main is 7 //argument used another pointer
+
+f. No. Use this to refer to the current object fields or prefix fields with m_
+
+
+
+2.
+a. O(n^3)
+b. O(n^2logn)
+c. O(2^(4logn))
+d. O(2^(2n^2))
+
+3
+a. O(n)
+b. O(nlogn)
+c. O(n)
+d. O(nlogn)
+e. O(n^logn)
+
+4.
+Naive sol:
+1. Iterate over the entire array and check the difference of two consecutive element. If difference == 2, found.
+
+Faster sol:
+1. Find mid.
+2. start == end, return start + 2.
+3. If arr[mid + 1] - arr[mid] == 2, return (arr[mid + 1] + arr[mid]) / 2.
+4. If mid + 1 = arr[mid], recurse on right side of mid.
+5. If mid + 1 < arr[mid], recurse on the left side of mid.
+
+5.
+Find whether possible to do all homework with a given rate k given a total hours of h
+1. Iterate through piles array, simulating the student doing homework.
+2. If has less than k work, hoursNeeded++
+3. If has more than k work, hoursNeeded += Math.ceiling(piles[i] / k)
+4. At the end, return hoursNeeded <= h
+
+Finding minimum
+1. Let min = 0; max = maxPieceOfHomeworkInAPile
+2. Find mid
+3. If mid cannot, min = mid;
+4. Else, max = mid;
+
+6.
+Naive:
+Iterate through the array and find the bounding minX, maxX, minY, maxY coordinates
+
+Faster:
+1. 4 run of find peak/min algorithm to find minX, maxX, minY, maxY
