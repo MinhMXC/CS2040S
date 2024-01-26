@@ -1,0 +1,10 @@
+1.
+a. O(n) | O(n^2) | O(ni)
+b. O(n^1.5) | O(n^0.5 * i)
+c. O(n)
+
+2.
+Wtf what does this even mean? 
+Just handle input from users and each person type their salary privately?
+Only one variable to keep track of the current inputted salary?
+Is this even an algorithm question?
