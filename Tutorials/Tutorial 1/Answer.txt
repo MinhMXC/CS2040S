@@ -46,15 +46,15 @@ f. No. Use this to refer to the current object fields or prefix fields with m_
 2.
 a. O(n^3)
 b. O(n^2logn)
-c. O(2^(4logn))
-d. O(2^(2n^2))
+c. O(2^(4logn)) //wrong ans = n^5; 2^(4logn) = (2^logn)^4 = n^4
+d. O(2^(2n^2)) //wrong ans = 2^(2n^2 + 4n). When there is exponential, cannot throw away variable inside it.
 
 3
 a. O(n)
 b. O(nlogn)
 c. O(n)
-d. O(nlogn)
-e. O(n^logn)
+d. O(logn)  
+e. O(n^logn) //wrong, cannot convert to O notation because we do not know the coefficient of g(n), which is imp
 
 4.
 Naive sol:
