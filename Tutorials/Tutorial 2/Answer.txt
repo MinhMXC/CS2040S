@@ -1,0 +1,81 @@
+1.
+a. O(n)
+b. O(n) 	// n * (1 + 1/2 + 1/4 + ...) = 2n = n
+c. O(n^2) 	// 1 + 2 + 3 + ... + n = n(n + 1) / 2 = n^2
+d. O(nlogn)	// T(N) = 2T(N/2) + N
+e. O(n^2)
+f. O(log(n!)) = O(nlogn)
+g. O(n)
+
+2.
+a.
+2 paramaters: arr + pos: position of the next element to sort
+Sort the pos position into the arr returned by calling the function with pos - 1;
+T(n) = T(n - 1) + 1
+Time: O(n)
+
+b.
+1. Selection Sort the 2nd field. Unstable
+2. Merge Sort the first field. Stable
+
+c.
+Bottom-up approach
+Merge Sort group of 2 element then group of 4 element then group of 8 element...
+
+3.
+a. 
+Stack:
+- Track where is the next place to insert the item, pos
+- push: insert into a[pos] pos++;
+- pop: remove a[pos - 1]; pos--;
+- peek: return a[pos - 1]
+
+Queue:
+- push: insert into first free element
+- pop: remove first element then shift the whole array by 1 to the left
+- peek: return first element
+
+b. 
+Combination of queue and stack
+
+c. 
+When the data tructure run out of capacity
+Raise Exception
+
+d.
+Iterature through the string
+- If open bracket, push a closing bracket into the stack
+- If close bracket, pop a closing bracket
+- If no closing bracket, return false
+- If at the end, the stack is not empty, return false
+
+e.
+Same solution as d but push a matching closing bracket and pop a matching closing bracket
+If a matching closing bracket is not found, return false
+
+4.
+Enter the first array item into the stack
+loop until end of array {
+	i = 1
+	while (a[i] <= stack.peek) {
+		view = i
+		i++;
+	}
+	push a[i] into the stack; view = infinity;
+}
+
+5.
+repeat n times {
+    a = dequeue from the original queue
+    int first = peek queue;
+    
+    while a > peek queue
+        dequeue and re-enqueue element
+    
+    enqueue a 
+    
+    while first != peek queue
+        dequeuea and re-enqueue element
+}
+
+Time: O(n^2)
