@@ -1,0 +1,33 @@
+1.
+a. Merge Sort like algorithm
+1. Split the array into halves.
+2. Recursively sort the two subarrays.
+3. If length == 1 or 0 return the same array inputted.
+4. For merging, find the boundary where A change to T on both subarrays and flip it.
+
+Recurrence: T(n) = 2T(n/2) + O(n/2)
+Time: O(nlogn)
+
+b. 
+1. Choose a pivot and partition the array using the above merge algorithm. O(nlogn)
+2. Recursively sort the subarrays.
+3. If length == 1 or 0 return the same array inputted.
+
+Recurrence: T(n) = 2T(n/2) + O(nlogn)
+Time: O(nlognlogn)
+
+c.
+1. Every element in the string are the same.
+2. No.
+3. Check If the string is already sorted first. 3-way partitions?
+
+2.
+a. Algorithm to produce a random permutation of A on every run. Upper bound and Completely randomized.
+b. Random number generator and iterate over the array. Choosing the number at index == random number generator output to
+   put in the new array.
+c. Yes
+d. Swapping the pairs randomly. Yes. 
+   Test: create an array of length 5. generate all possible permutation and put them as keys and initial value = 0. 
+         run the algorithm 100000 times and if a permutation match a key, value += 1;
+	 at the end, every permutation should have the same value.
+ 

@@ -1,0 +1,50 @@
+1.
+a. 1 1 1 1 1 1 1
+
+b. No. Yes. No because it involves creating a whole new array instead of inplace
+int low = 0;
+int high = N - 1;
+for [0...N) do
+  if (a[i] <= pivot)
+    a_new[low] = a[i];
+    low++;
+   else
+    a_new[high] = a[i];
+    high--;
+end
+
+c. O(n)
+d. O(n + klogk)
+
+
+2.
+Use array to check whether an element exists 
+a. O(n) //Go through entire array
+b. O(nlogn) / O(n) if integer //Sort then eliminate duplicates
+c. O(ab) / O(a + b) if integer //compare each item in A to each item in B
+d. O(n) classic TwoSum
+
+3.
+Partition like there's no tmr. Kinda like quicksort
+1. Get some random kid
+2. Try every shoes on him, then partition it into smaller and bigger shoes.
+   Don't put the shoes on him yet
+3. Get another kid and let him try the shoes that fit the previous kids.
+   If smaller, search in the smaller partition, else the bigger partition.
+4. Do this recursively and do not put on the correct shoes.
+5. One will need to compare with all previously fit shoes.
+   Eg: the 3rd child will need to compare with the 1st and 2nd child shoes to figure out the correct partition
+   When partition are filled up, then no need to check some shoes.
+6. After going through all, every child shoes should be known and give them their shoes.
+
+4.
+a. Check through all the pivot to know what partition the element belongs to.
+b. O(n)
+c. T(n) = kT(n / k) + O(n)
+d. O(nlogk(n)) (No, because k will be ignored in O-notation)
+
+5.
+a. The partition algorithm in quicksort. Yes. No.
+b. Sort element into the index of the new array of length M + 1. O(n)
+c. O(nlogn). When the difference between numbers are very large.
+d. Yes. Huge amount of memory is required for the b) algorithm.
