@@ -3,9 +3,9 @@ a. O(n)
 b. O(n) 	// n * (1 + 1/2 + 1/4 + ...) = 2n = n
 c. O(n^2) 	// 1 + 2 + 3 + ... + n = n(n + 1) / 2 = n^2
 d. O(nlogn)	// T(N) = 2T(N/2) + N
-e. O(n^2)
+e. O(n^2) // wrong 2^n
 f. O(log(n!)) = O(nlogn)
-g. O(n)
+g. O(n) // wrong O(n^2) each string concatenation take O(n) time
 
 2.
 a.
@@ -30,10 +30,18 @@ Stack:
 - pop: remove a[pos - 1]; pos--;
 - peek: return a[pos - 1]
 
+// Too inefficient
 Queue:
 - push: insert into first free element
 - pop: remove first element then shift the whole array by 1 to the left
 - peek: return first element
+
+Queue:
+- Similar approach as above but two pointer to 
+get the start and beginning of the queue. Wrap the queue
+to the start if it reaches the end. If back == end, overflow
+
+Circular data structure
 
 b. 
 Combination of queue and stack
@@ -57,11 +65,11 @@ If a matching closing bracket is not found, return false
 Enter the first array item into the stack
 loop until end of array {
 	i = 1
-	while (a[i] <= stack.peek) {
+	while (array is increasing) {
 		view = i
 		i++;
 	}
-	push a[i] into the stack; view = infinity;
+	push a[i] into the stack; view = iterate through the stack;
 }
 
 5.

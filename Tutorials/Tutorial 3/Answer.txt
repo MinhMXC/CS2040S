@@ -1,5 +1,5 @@
 1.
-a. 1 1 1 1 1 1 1
+a. 1 1 1 1 1 1 1 // 1 2 3 4 5 6 7 8 9 0
 
 b. No. Yes. No because it involves creating a whole new array instead of inplace
 int low = 0;
@@ -13,15 +13,18 @@ for [0...N) do
     high--;
 end
 
+// Doeesn't work because the high array position will be flipped and with duplicated pivots
+// Solution: Create a pair with key as the actualy value and value as the initial position
+
 c. O(n)
-d. O(n + klogk)
+d. O(nk) //worst case partition always pick bad pivot
 
 
 2.
 Use array to check whether an element exists 
 a. O(n) //Go through entire array
 b. O(nlogn) / O(n) if integer //Sort then eliminate duplicates
-c. O(ab) / O(a + b) if integer //compare each item in A to each item in B
+c. O(aloga + blogb) = O(nlogn) / O(n) if integer //sort A and B and merge
 d. O(n) classic TwoSum
 
 3.
@@ -37,14 +40,17 @@ Partition like there's no tmr. Kinda like quicksort
    When partition are filled up, then no need to check some shoes.
 6. After going through all, every child shoes should be known and give them their shoes.
 
+// Same solution but partition both the shoes and the children, then give pivot kid his shoes and recurse
+
 4.
 a. Check through all the pivot to know what partition the element belongs to.
-b. O(n)
-c. T(n) = kT(n / k) + O(n)
-d. O(nlogk(n)) (No, because k will be ignored in O-notation)
+// More efficient: Use a binary search to find which pivot to put inside
+b. O(nlogk)
+c. T(n) = kT(n / k) + O(nlogk)
+d. O(nlogn)
 
 5.
 a. The partition algorithm in quicksort. Yes. No.
 b. Sort element into the index of the new array of length M + 1. O(n)
-c. O(nlogn). When the difference between numbers are very large.
-d. Yes. Huge amount of memory is required for the b) algorithm.
+c. O(64n) = O(n). Better than O(nlogn) when logn < 64.
+d. Look at 8 bits at a time using counting sort instead of 1 bit at a time.

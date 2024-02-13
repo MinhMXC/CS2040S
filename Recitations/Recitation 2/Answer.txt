@@ -1,0 +1,29 @@
+1.
+a.
+assume index of top of stack = 1
+assume index of bottom of stack = n
+
+find smallest item in stack
+do a flip so that it's at the top
+for int i in [1...n-2] times { //exclude first + last one
+    find smallest item in stack [(i + 1)...n], call its index a
+    flip at a - 1 so that the smallest item is below the smallest one
+    flip at a then flip again at i + 1
+    now items [1...i+1] are sorted
+}
+
+Time: O(n^2)
+
+b. items [1...i+1] is sorted
+Selection Sort
+
+c. O(n^2) Just one more step in the loop to flip the newly added 
+pancake to face the right direciton
+
+d. 
+Size 3: max 3 flips
+Size 8: max 15 flips
+
+e. O(n^2) just sort by the crunchies
+
+f. Lowest runtime? 

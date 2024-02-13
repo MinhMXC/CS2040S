@@ -1,6 +1,6 @@
 1.
-a. O(n) | O(n^2) | O(ni)
-b. O(n^1.5) | O(n^0.5 * i)
+a. O(n) | O(n^2) | O(n^2) // last one wrong
+b. O(n^1.5) | O(n) //last one wrong	
 c. O(n)
 
 2.
