@@ -72,8 +72,17 @@ public class SGTree {
      * @param child the specified subtree
      * @return array of nodes
      */
+    // Told you I'd find an iterative solution, albeit at 2am and now im dead
     public TreeNode[] enumerateNodes(TreeNode node, Child child) {
-        TreeNode[] nodes = new TreeNode[countNodes(node, child)];
+        int nodesCount = countNodes(node, child);
+        TreeNode[] nodes = new TreeNode[nodesCount];
+        int nodesPos = 0;
+
+        // Creating a stack-like structure using array
+        // Guaranteed to not overflow because max height of tree == nodeCount
+        // Store every node, which right side has not been looked into
+        TreeNode[] stack = new TreeNode[nodesCount];
+        int stackPos = 0;
 
         // Make node refer to the correct subnode to enumerate
         node = child == Child.LEFT ? node.left : node.right;
@@ -81,16 +90,39 @@ public class SGTree {
         if (node == null)
             return new TreeNode[]{};
 
-        TreeNode[] left = enumerateNodes(node, Child.LEFT);
-        TreeNode[] right = enumerateNodes(node, Child.RIGHT);
+        while (node != null) {
+            stack[stackPos] = node;
+            stackPos++;
+            node = node.left;
+        }
 
-        for (int i = 0; i < left.length; i++)
-            nodes[i] = left[i];
+        // Go back to not null node
+        node = stack[stackPos - 1];
 
-        nodes[left.length] = node;
+        while (stackPos != 0) {
+            nodes[nodesPos] = node;
+            nodesPos++;
 
-        for (int i = 0; i < right.length; i++)
-            nodes[left.length + 1 + i] = right[i];
+            stack[stackPos - 1] = null;
+            stackPos--;
+
+            if (node.right == null) {
+                if (stackPos == 0)
+                    break;
+                node = stack[stackPos - 1];
+                continue;
+            }
+
+            node = node.right;
+
+            while (node != null) {
+                stack[stackPos] = node;
+                stackPos++;
+                node = node.left;
+            }
+
+            node = stack[stackPos - 1];
+        }
 
         return nodes;
     }
@@ -167,12 +199,12 @@ public class SGTree {
     // Simple main function for debugging purposes
     public static void main(String[] args) {
         SGTree tree = new SGTree();
-        for (int i = 0; i < 100; i++) {
+        for (int i = -10; i < 100; i++) {
             tree.insert(i);
         }
 //        tree.rebuild(tree.root, Child.RIGHT);
 //        TreeNode bruh = tree.buildTree(tree.enumerateNodes(tree.root, Child.RIGHT));
-//        System.out.println(Arrays.toString(tree.enumerateNodes(bruh, Child.LEFT)));
+        System.out.println(Arrays.toString(tree.enumerateNodes(tree.root, Child.RIGHT)));
 //        System.out.println(Arrays.toString(tree.enumerateNodes(tree.root, Child.RIGHT)));
     }
 }
