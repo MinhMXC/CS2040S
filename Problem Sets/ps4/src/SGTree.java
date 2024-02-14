@@ -11,7 +11,7 @@ import java.util.Arrays;
  * a subtree.
  */
 
-//Simple array-based stack for iterative implementations
+// Simple array-based stack for iterative implementations
 class Stack<T> {
     private T[] m_a;
     //Pos to insert into next
@@ -100,66 +100,31 @@ public class SGTree {
      * @param child the specified subtree
      * @return array of nodes
      */
-    // Told you I'd find an iterative solution, albeit at 2am and now im dead
-    public TreeNode[] enumerateNodesIterative(TreeNode node, Child child) {
-        int nodesCount = countNodes(node, child);
-        TreeNode[] nodes = new TreeNode[nodesCount];
-        int nodesPos = 0;
+    public TreeNode[] enumerateNodes(TreeNode node, Child child) {
+        if (node == null)
+            return new TreeNode[]{};
 
-        // Creating a stack-like structure using array
-        // Guaranteed to not overflow because max height of tree == nodeCount
-        // Store every node, which right side has not been looked into
-        TreeNode[] stack = new TreeNode[nodesCount];
-        int stackPos = 0;
+        int nodesCount = countNodes(node, child);
 
         // Make node refer to the correct subnode to enumerate
         node = child == Child.LEFT ? node.left : node.right;
 
+        //Guarantee that the side looking at is not null
         if (node == null)
             return new TreeNode[]{};
 
-        while (node != null) {
-            stack[stackPos] = node;
-            stackPos++;
-            node = node.left;
-        }
+        TreeNode[] ans = new TreeNode[nodesCount];
 
-        // Go back to not null node
-        node = stack[stackPos - 1];
+        // Stack for iterative implementation
+        // Guaranteed to not overflow because max height of tree == nodeCount
+        // Store every node, which right side has not been looked into
+        Stack<TreeNode> stack = new Stack<>(nodesCount);
 
-        while (stackPos != 0) {
-            nodes[nodesPos] = node;
-            nodesPos++;
+        enumerateNodesIterative(node, ans, stack);
 
-            stack[stackPos - 1] = null;
-            stackPos--;
+        // Recursive call
+        // enumerateNodesRecursive(node, ans, 0);
 
-            if (node.right == null) {
-                if (stackPos == 0)
-                    break;
-                node = stack[stackPos - 1];
-                continue;
-            }
-
-            node = node.right;
-
-            while (node != null) {
-                stack[stackPos] = node;
-                stackPos++;
-                node = node.left;
-            }
-
-            node = stack[stackPos - 1];
-        }
-
-        return nodes;
-    }
-
-    public TreeNode[] enumerateNodes(TreeNode node, Child child) {
-        TreeNode[] ans = new TreeNode[countNodes(node, child)];
-        // Point node to the correct side
-        node = child == Child.LEFT ? node.left : node.right;
-        enumerateNodesRecursive(node, ans, 0);
         return ans;
     }
 
@@ -176,6 +141,39 @@ public class SGTree {
         return ansPos;
     }
 
+    // Told you I'd find an iterative solution, albeit at 2am and now im dead
+    public void enumerateNodesIterative(TreeNode node, TreeNode[] ans, Stack<TreeNode> stack) {
+        int ansPos = 0;
+
+        stack.push(node);
+        while (node.left != null) {
+            stack.push(node.left);
+            node = node.left;
+        }
+
+        while (!stack.isEmpty()) {
+            node = stack.pop();
+            ans[ansPos] = node;
+            ansPos++;
+
+            // Look into right side
+            node = node.right;
+
+            if (node == null) {
+                if (stack.isEmpty())
+                    break;
+                continue;
+            }
+
+            stack.push(node);
+
+            while (node.left != null) {
+                stack.push(node.left);
+                node = node.left;
+            }
+        }
+    }
+
     /**
      * Builds a tree from the list of nodes
      * Returns the node that is the new root of the subtree
@@ -183,49 +181,74 @@ public class SGTree {
      * @param nodeList ordered array of nodes
      * @return the new root node
      */
+    public TreeNode buildTree(TreeNode[] nodeList) {
+        //Delete the previous tree structure
+        for (TreeNode node : nodeList) {
+            node.right = null;
+            node.left = null;
+        }
+
+        return buildTreeIterative(nodeList);
+        // Recursive
+        // return buildTreeRecursive(nodeList, 0, nodeList.length - 1);
+    }
+
+    public TreeNode buildTreeRecursive(TreeNode[] nodeList, int low, int high) {
+        if (high - low < 0)
+            return null;
+
+        int midIndex = low + (high - low) / 2;
+        TreeNode mid = nodeList[midIndex];
+        mid.left = buildTreeRecursive(nodeList, low, midIndex - 1);
+        mid.right = buildTreeRecursive(nodeList, midIndex + 1, high);
+        return mid;
+    }
+
+    // Realised that I'm just mimicking the stack frame in CPU
     public TreeNode buildTreeIterative(TreeNode[] nodeList) {
         if (nodeList.length == 1)
             return nodeList[0];
         if (nodeList.length == 0)
             return null;
 
-        //Guaranteed to not overflow because max height = log(nodeList.lenght)
+        //Guaranteed to not overflow because max height = log(nodeList.length)
         Stack<Integer> lows = new Stack<>(nodeList.length);
         Stack<Integer> highs = new Stack<>(nodeList.length);
         Stack<TreeNode> nodes = new Stack<>(nodeList.length);
 
         int low = 0;
         int high = nodeList.length - 1;
-
         int i_mid = low + (high - low) / 2;
+
         TreeNode root = nodeList[i_mid];
         TreeNode cur = root;
 
         lows.push(i_mid + 1);
         highs.push(high);
+        nodes.push(cur);
 
         high = i_mid - 1;
 
+        // Iterate LEFT side
         while (low <= high) {
             int mid = low + (high - low) / 2;
+
             cur.left = nodeList[mid];
+            cur = cur.left;
 
             lows.push(mid + 1);
             highs.push(high);
             nodes.push(cur);
 
-            cur = cur.left;
-
             high = mid - 1;
         }
-
-        cur = cur.left;
 
         while(!nodes.isEmpty()) {
             cur = nodes.pop();
             low = lows.pop();
             high = highs.pop();
 
+            // Iterate RIGHT side
             if (low <= high) {
                 int l_mid = low + (high - low) / 2;
                 cur.right = nodeList[l_mid];
@@ -233,42 +256,32 @@ public class SGTree {
 
                 lows.push(l_mid + 1);
                 highs.push(high);
+                nodes.push(cur);
 
                 high = l_mid - 1;
             }
 
+            // Iterate LEFT side
             while (low <= high) {
                 int mid = low + (high - low) / 2;
+
                 cur.left = nodeList[mid];
+                cur = cur.left;
 
                 lows.push(mid + 1);
                 highs.push(high);
                 nodes.push(cur);
 
-                cur = cur.left;
-
                 high = mid - 1;
             }
-
-            cur = cur.left;
         }
 
         return root;
     }
 
-    public TreeNode buildTree(TreeNode[] nodeList) {
-        if (nodeList.length == 0)
-            return null;
-
-        TreeNode mid = nodeList[nodeList.length / 2];
-        mid.left = buildTree(Arrays.copyOfRange(nodeList, 0, nodeList.length / 2));
-        mid.right = buildTree(Arrays.copyOfRange(nodeList,nodeList.length / 2 + 1, nodeList.length));
-        return mid;
-        }
-
     /**
     * Rebuilds the specified subtree of a node
-    * 
+    *
     * @param node the part of the subtree to rebuild
     * @param child specifies which child is the root of the subtree to rebuild
     */
@@ -321,17 +334,11 @@ public class SGTree {
     // Simple main function for debugging purposes
     public static void main(String[] args) {
         SGTree tree = new SGTree();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 100; i++) {
             tree.insert(i);
         }
 
-        TreeNode[] ls = tree.enumerateNodes(tree.root, Child.RIGHT);
-        System.out.println(Arrays.toString(ls));
-        //TreeNode root = tree.buildTreeIterative(ls);
-        TreeNode root2 = tree.buildTree(ls);
-//        tree.rebuild(tree.root, Child.RIGHT);
-//        TreeNode bruh = tree.buildTree(tree.enumerateNodes(tree.root, Child.RIGHT));
-        System.out.println(Arrays.toString(tree.enumerateNodesIterative(root2, Child.LEFT)));
-//        System.out.println(Arrays.toString(tree.enumerateNodes(tree.root, Child.RIGHT)));
+        TreeNode root = tree.buildTree(tree.enumerateNodes(tree.root, Child.RIGHT));
+        System.out.println(Arrays.toString(tree.enumerateNodes(root, Child.RIGHT)));
     }
 }
