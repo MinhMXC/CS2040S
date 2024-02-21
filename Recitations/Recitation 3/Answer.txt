@@ -22,11 +22,11 @@ c.
 3. Check If the string is already sorted first. 3-way partitions?
 
 2.
-a. Algorithm to produce a random permutation of A on every run. Upper bound and Completely randomized.
-b. Random number generator and iterate over the array. Choosing the number at index == random number generator output to
-   put in the new array.
-c. Yes
-d. Swapping the pairs randomly. Yes. 
+a. Algorithm to produce a random permutation of A on every run. Probability of a permuation = 1/n!.
+b. Sorting shuffle. Assign each element a random number [0, 1] and then sort.
+c. n^n possibility but n! permutation. Thus, algorithm does not guarantee complete randomness, some permutation has higher probability.
+d. Yes. n! possibility. 2 x 3 x 4 x 5 x ... x n
+   Swapping the pairs randomly. Yes. 
    Test: create an array of length 5. generate all possible permutation and put them as keys and initial value = 0. 
          run the algorithm 100000 times and if a permutation match a key, value += 1;
 	 at the end, every permutation should have the same value.

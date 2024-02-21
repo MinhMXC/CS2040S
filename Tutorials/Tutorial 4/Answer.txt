@@ -1,0 +1,44 @@
+1.
+a.
+1. Delete 70 -> 65 points at 72
+2. Right rotate 68 and 72
+3. Left rotate 57 and 52
+4. Right rotate 52 and 65
+
+b. 39, 57, 58, 52, 65, 68, 70
+
+c. value whether the tree is left or right heavy or balanced
+
+d. 
+while (next < prev) {
+  connect all these nodes on the left of each other
+}
+while (next != nullptr) {
+  connect the next node on the right side of the largest
+  node possible that maintain the property of the tree.
+  
+  while (next < prev) {
+    connect all these nodes on the left of each other
+  }
+}
+
+2.
+DFS: stack
+BFS: queue
+
+3.
+a. 1 bite left. The first plate is the winner.
+b. Merge Sort. n - logn bites left.
+c. QuickSelect. 2logn bites consumed.
+
+4.
+1. Quicksort the dataset.
+2. Sum all the wealth together and /= k.
+3. Iterate over the dataset, grouping people together
+until sum of wealth in that group == above value.
+
+5.
+Assign height value to each node
+If right node is deleted, height = left node.
+If left node is deleted, height = right node.
+Update all ancestor node

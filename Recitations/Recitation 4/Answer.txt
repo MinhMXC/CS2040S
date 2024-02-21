@@ -1,0 +1,39 @@
+No, because in a B-tree, all leaf must be of the
+same depth while that is not the case in BST
+
+1.1
+a. Yes, Rule 3
+b. Min: 1, Max: logn
+c. Dictionary
+
+cur = root
+while (cur != target) 
+  interval = find_interval(target)
+  cur = dic(interval)
+
+1.2
+In the case of min children and min key,
+adding one more children will require one more key
+
+do the same split with the parent key
+
+e. Bruh too lazy
+
+1.3
+1.f
+contains b - 1 keys && a <= (b + 1) / 2 => a <= 2b => z contains >= 2a keys
+if z's parents contains b - 1 keys, it would have been split => parents contains <= b - 2 keys
+
+w would have been splitted if it contains b - 1 keys
+
+all full node is splitted and x is inserted into a leaf to height depth doesnt increase
+
+1.g. O(loga(n))
+
+1.h. O(logb(n))
+
+2.
+a. O(n/B)
+b. O(log(n/B))
+c. O(B), O(B), O(B)
+d. O(h), O(h), O(h)
