@@ -1,11 +1,11 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Trie {
 
     // Wildcards
     final char WILDCARD = '.';
 
-    // I'll be ignoring all the OOP good practices for simplicity’s sake
     private class TrieNode {
         public boolean end;
         public TrieNode[] presentChars;
@@ -22,7 +22,7 @@ public class Trie {
         root = new TrieNode();
     }
 
-    int translateChar(char c) {
+    private static int translateChar(char c) {
         if (48 <= c && c <= 57)
             return c - 48;
         else if (65 <= c && c <= 90)
@@ -58,10 +58,11 @@ public class Trie {
     boolean contains(String s) {
         TrieNode cur = this.root;
         for (int i = 0; i < s.length(); i++) {
-            if (cur == null)
+            int val = translateChar(s.charAt(i));
+
+            if (cur.presentChars[val] == null)
                 return false;
 
-            int val = translateChar(s.charAt(i));
             cur = cur.presentChars[val];
         }
         return cur.end;
@@ -76,9 +77,61 @@ public class Trie {
      * @param limit   max number of strings to add into results
      */
     void prefixSearch(String s, ArrayList<String> results, int limit) {
-        // TODO
+        TrieNode cur = this.root;
+        for (int i = 0; i < s.length(); i++) {
+            int val = translateChar(s.charAt(i));
+
+            if (cur.presentChars[val] == null)
+                return;
+
+            cur = cur.presentChars[val];
+        }
+
+        ArrayList<StringBuilder> ans = new ArrayList<>();
+        int[] limitA = new int[2];
+        limitA[1] = limit;
+
+        findAllStringFromNode(s.charAt(s.length() - 1), ans, cur, limitA);
+
+        for (StringBuilder sb : ans) {
+            sb.append(s);
+            sb.reverse();
+            results.add(sb.toString());
+        }
     }
 
+    private static char translateIndex(int index) {
+        if (0 <= index && index <= 9)
+            return (char) (index + 48);
+        else if (10 <= index && index <= 35)
+            return (char) (index + 55);
+        else
+            return (char) (index + 61);
+    }
+
+    private static void findAllStringFromNode(char c, ArrayList<StringBuilder> results, TrieNode node, int[] limit) {
+        if (node == null)
+            return;
+        if (limit[0] >= limit[1])
+            return;
+
+        ArrayList<StringBuilder> ans = new ArrayList<>();
+
+        if (node.end)
+            limit[0]++;
+
+        for (int i = 0; i < 62; i++) {
+            findAllStringFromNode(translateIndex(i), ans, node.presentChars[i], limit);
+        }
+
+        for (StringBuilder s : ans)
+            s.append(c);
+
+        if (node.end)
+            results.add(new StringBuilder().append(c));
+
+        results.addAll(ans);
+    }
 
     // Simplifies function call by initializing an empty array to store the results.
     // PLEASE DO NOT CHANGE the implementation for this function as it will be used
@@ -92,10 +145,14 @@ public class Trie {
 
     public static void main(String[] args) {
         Trie t = new Trie();
-//        t.insert("a");
-//        t.insert("ab");
-//        t.insert("abc");
-//        System.out.println(t.contains(""));
+        t.insert("a");
+        t.insert("aa");
+        t.insert("aaa");
+        t.insert("aaaa");
+        t.insert("minh");
+
+        for (String s : t.prefixSearch("mi", 10))
+            System.out.println(s);
 //        t.insert("peter");
 //        t.insert("piper");
 //        t.insert("picked");
@@ -107,9 +164,6 @@ public class Trie {
 //        t.insert("pepppito");
 //        t.insert("pepi");
 //        t.insert("pik");
-//
-//        t.insert("");
-//        System.out.println(t.contains(""));
 //
 //        String[] result1 = t.prefixSearch("pe", 10);
 //        String[] result2 = t.prefixSearch("pe.", 10);
