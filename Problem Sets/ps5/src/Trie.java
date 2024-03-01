@@ -1,5 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class Trie {
 
@@ -29,6 +31,15 @@ public class Trie {
             return c - 55;
         else
             return c - 61;
+    }
+
+    private static char translateIndex(int index) {
+        if (0 <= index && index <= 9)
+            return (char) (index + 48);
+        else if (10 <= index && index <= 35)
+            return (char) (index + 55);
+        else
+            return (char) (index + 61);
     }
 
     /**
@@ -76,57 +87,73 @@ public class Trie {
      * @param results array to add the results into
      * @param limit   max number of strings to add into results
      */
+
+    //Should be O(l), l = total length of all string that matches the prefix
     void prefixSearch(String s, ArrayList<String> results, int limit) {
-        TrieNode cur = this.root;
-        for (int i = 0; i < s.length(); i++) {
-            int val = translateChar(s.charAt(i));
-
-            if (cur.presentChars[val] == null)
-                return;
-
-            cur = cur.presentChars[val];
-        }
-
+        // Setting up for Recursive Calls
+        // limitArray[0] = no. of words found; limitArray[1] == limit
+        int[] limitArray = new int[2];
+        limitArray[1] = limit;
         ArrayList<StringBuilder> ans = new ArrayList<>();
-        int[] limitA = new int[2];
-        limitA[1] = limit;
 
-        findAllStringFromNode(s.charAt(s.length() - 1), ans, cur, limitA);
+        prefixSearchRecursive(s, ans, root, limitArray);
 
-        for (StringBuilder sb : ans) {
-            sb.append(s);
-            sb.reverse();
-            results.add(sb.toString());
-        }
+        for (StringBuilder sb : ans)
+            results.add(sb.reverse().toString());
     }
 
-    private static char translateIndex(int index) {
-        if (0 <= index && index <= 9)
-            return (char) (index + 48);
-        else if (10 <= index && index <= 35)
-            return (char) (index + 55);
-        else
-            return (char) (index + 61);
-    }
-
-    private static void findAllStringFromNode(char c, ArrayList<StringBuilder> results, TrieNode node, int[] limit) {
+    // Matching prefix first before finding all strings
+    void prefixSearchRecursive(String s, ArrayList<StringBuilder> results, TrieNode node, int[] limitArray) {
         if (node == null)
             return;
-        if (limit[0] >= limit[1])
+
+        if (s.isEmpty()) {
+            findAllStringFromNode(results, node, limitArray);
+        } else if (s.charAt(0) == '.') {
+            for (int i = 0; i < 62; i++) {
+                ArrayList<StringBuilder> ans = new ArrayList<>();
+                prefixSearchRecursive(s.substring(1), ans, node.presentChars[i], limitArray);
+                for (StringBuilder sb : ans)
+                    sb.append(translateIndex(i));
+                results.addAll(ans);
+            }
+        } else {
+            prefixSearchRecursive(s.substring(1), results, node.presentChars[translateChar(s.charAt(0))], limitArray);
+            for (StringBuilder sb: results)
+                sb.append(s.charAt(0));
+        }
+    }
+
+    // To be used after all letters in the pattern is matched
+    private static void findAllStringFromNode(ArrayList<StringBuilder> results, TrieNode node, int[] limitArray) {
+        if (limitArray[0] >= limitArray[1])
+            return;
+
+        if (node.end) {
+            results.add(new StringBuilder());
+            limitArray[0]++;
+        }
+
+        for (int i = 0; i < 62; i++)
+            findAllStringRecursive(translateIndex(i), results, node.presentChars[i], limitArray);
+    }
+
+    private static void findAllStringRecursive(char c, ArrayList<StringBuilder> results, TrieNode node, int[] limitArray) {
+        if (node == null || limitArray[0] >= limitArray[1])
             return;
 
         ArrayList<StringBuilder> ans = new ArrayList<>();
 
         if (node.end)
-            limit[0]++;
+            limitArray[0]++;
 
-        for (int i = 0; i < 62; i++) {
-            findAllStringFromNode(translateIndex(i), ans, node.presentChars[i], limit);
-        }
+        for (int i = 0; i < 62; i++)
+            findAllStringRecursive(translateIndex(i), ans, node.presentChars[i], limitArray);
 
         for (StringBuilder s : ans)
             s.append(c);
 
+        // Add the current node character first before adding the rest to maintain sorting order
         if (node.end)
             results.add(new StringBuilder().append(c));
 
@@ -145,13 +172,16 @@ public class Trie {
 
     public static void main(String[] args) {
         Trie t = new Trie();
-        t.insert("a");
-        t.insert("aa");
-        t.insert("aaa");
-        t.insert("aaaa");
-        t.insert("minh");
+        try {
+            Scanner s = new Scanner(new File("words.txt"));
+            while (s.hasNext())
+                t.insert(s.nextLine());
+        } catch (FileNotFoundException e) {
+            System.out.println("bruh");
+        }
 
-        for (String s : t.prefixSearch("mi", 10))
+
+        for (String s : t.prefixSearch(".", 50))
             System.out.println(s);
 //        t.insert("peter");
 //        t.insert("piper");
