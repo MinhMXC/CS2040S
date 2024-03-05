@@ -1,0 +1,31 @@
+1.
+AVL:
+- Larger memory usage
+- Harder to implement
+- Operations are now O(nlogn) since comparing two strings is O(n)
+
+Trie:
+- Lower memory usage
+- Easier to implement
+- Operations are O(logn)
+
+2.
+a.
+Compare the point's x and y values with the nodes to
+see which part of the tree the point is
+
+b.
+Find the median x value [0 ... n-1]
+Insert median x node into the tree
+Recurse but find median y value 
+Alternate between y and x values between each recursive call
+At the end, insert every points into the leaves
+
+Runtime: O(nlogn)
+
+c.
+n / 2 + n / 8 + n / 32 + ... = O(n)
+
+3.
+Trie with each node having two variables to store the
+numbers of female and male babies having that name
