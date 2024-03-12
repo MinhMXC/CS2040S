@@ -1,0 +1,35 @@
+1.
+a.
+0: 7 0 42
+1: 36 
+2: 
+3: 45 52 24
+4: 32 60 18
+5: 47
+6: 27
+
+b.
+Advantage:
+- Lower lookup time
+- Lower deletion time
+Disadvantage:
+- Higher insertion time
+
+c.
+Store (key, value) because different key may end up in the same bucket
+
+2.
+1. Add every coupon to a hashset with hash function 
+such that smaller coupon get into smaller bucket
+2. Enumerate the hashset
+3. O(n) time
+
+3.
+O(n)
+Hashset and check for the empty bucket
+
+Iterate through array
+Use absolute value of current element as index, 
+make the element at that index negative
+
+Iterate through array and find the remaining positive number.
