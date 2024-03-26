@@ -1,0 +1,39 @@
+1.
+a. Double for loop trivial solution
+Time: O(n^2)
+Space: O(1)
+
+b. Sort the price array with quicksort then visit 
+each element that is less than or equal to n/2 
+and binary search for the corresponding
+Time: O(nlogn)
+Space: O(logn)
+
+Modify the array so that it includes pairs of item number
+and its price.
+
+c. HashSet standard solution.
+Duplicates: Use a HashMap instead
+
+Time: O(n)
+Space: O(n)
+
+d. Remove the prices from the array / hashmap after a pair
+has been found and continue with the algorithm
+
+e. Calculate the sums of all the pairs and put them in
+a hashset and iterate over the array and check if the
+corresponding sum exist
+Time: O(n^2)
+Space: O(n^2)
+
+
+2.
+a.
+O(n)
+O(n)
+Infinite since the process does not terminate
+
+b. O(n^2)
+
+c. 

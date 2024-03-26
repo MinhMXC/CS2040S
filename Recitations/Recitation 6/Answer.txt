@@ -1,0 +1,64 @@
+1.
+a. Implement an AVL tree
+
+Use a tree of string concatenation
+Leave = 1 record
+Parent = 2 records concatenated
+Grandparent = 4 records concatenated
+
+Store hash of string in each tree for more efficency
+
+Called Markle Tree
+
+
+2.                                                    
+a. Binary search and find the start of the deleted photos
+1. Find mid (of local)
+2. Hash start to mid (of local)
+3. If hash local == hash remote, recurse right, else recurse left.
+4. Return if low == high
+
+Time: O(logn); Space: O(1)
+
+b. Binary search and find the start of the deleted photos
+1. Find mid (of local)
+2. Hash mid (of local)
+3. If hash local == hash remote, recurse right, else recurse left.
+4. Return if low == high
+
+c.
+Just binary search until all photos are found.
+Find 1st deleted image, then find 2nd one, ...
+
+d.
+Objective: create a small unique value for each photo and sending it
+over Internet instead of downing an entire picture to compare.
+Key to success: the hash value should be small but still enough
+to differentiate different photo.
+
+e.
+No, hash is a list of key-value pairs.
+The example only includes the values.
+
+f.
+No because hash function is not perfect, so she may miss some deleted photos 
+that has the same hash value as the non-deleted ones
+
+g.
+The solution would work but it would not be effective as it transfer
+a lot of data and run in O(n) time and space
+
+h.
+The hash function may have some collision which causes the 2nd condition
+to be less likely to evaluate to true as it requires the hash function to 
+be unique for n photos. By using the 2.5. boolean expression, we only 
+requires that the hashes for the deleted photos are unique.
+
+i.
+The desired hash function must return unique hashes for the deleted photos.
+
+j.
+Objective: find the hash function that return unique hashes for the 
+deleted photos.
+Because the difference in the number of bucket of Hr and Hl is the 
+number of unique hashes for the deleted photos.

@@ -1,0 +1,82 @@
+1.
+a.
+In a cycle, each node is connected to two
+other nodes. This would mean that a node
+has two parents in the context of DFS and BFS, 
+which cannot happen
+
+It is a tree because n nodes are visited and there will be n - 1
+parents node. The parent nodes can be thought of as edges.
+So the result is a graph is n nodes and n - 1 edges.
+Thus it must be a tree
+
+b.
+Same meaning and strategy to implement
+Not the same algorithm
+No
+Yes
+It will run on the subtree at that node
+
+2.
+i. Run DFS. If by the end, all node is visited,
+the graph is connected
+ii. Run DFS until all node is visited. + 1 
+connected component if need to move to new 
+not visited node
+
+3.
+Run DFS until a cycle is detected. A cycle is
+when one of the frontier nodes is a non-parent
+visited node
+
+Count the number of edges. If number of edges !=  n - 1, it has a cycle
+
+4.
+a. 
+Node: patients
+Edge: Two patients interact oftenly with each other
+
+b.
+Node: location and people
+Edge: if they do to the place
+
+c.
+Node: jobs
+Edge: if they overlap
+Solution: find the number of neighbours
+
+d.
+Node: students
+Edge: if they are similar enough then connect
+Solution: find the dense cluster of node
+
+e.
+Node: child and presents (bipartite graph)
+Edge: if the child want that presents
+Solution: find the set of edges that do not share any endpoints
+
+5.
+a. 
+Node: Puzzle State. N == 1, T == 2, ...
+Node Count: 10^9
+Edge: Each state is connected to the next if
+the next one is an extension of the current one.
+Looking for the leaves where the equation is valid
+
+Terminate early if the state doesnt match up
+
+b.
+DFS
+
+c.
+Finish when a valid leaf is found
+
+6.
+Node: students
+Edge: if they appear on the same card
+Solution: if the graph is bipartite then it is consistent
+
+Sufficient when there is only one connected component
+
+7.
+See slides

@@ -2,7 +2,7 @@ No, because in a B-tree, all leaf must be of the
 same depth while that is not the case in BST
 
 1.1
-a. Yes, Rule 3
+a. Yes, Rule 1 and 3 (3 only then all element can be left / right side)
 b. Min: 1, Max: logn
 c. Dictionary
 
@@ -31,6 +31,12 @@ all full node is splitted and x is inserted into a leaf to height depth doesnt i
 1.g. O(loga(n))
 
 1.h. O(logb(n))
+
+1. Search cost O(logb * loga(n)) // Binary search over each node
+1. Insertion sort O(bloga(n)) // if we split we need to copy b/2 elements
+1. Insertion sort O(bloga(n)) // if we merge we need to copy b/2 elements
+
+1. irl every operation is constant time
 
 2.
 a. O(n/B)
