@@ -140,7 +140,8 @@ public class MazeSolver implements IMazeSolver {
 			}
 
 			visited[cRow][cCol] = true;
-			parents[cRow][cCol] = d.direction == Direction.NORTH
+			parents[cRow][cCol] =
+					d.direction == Direction.NORTH
 					? Direction.SOUTH
 					: d.direction == Direction.SOUTH
 					? Direction.NORTH

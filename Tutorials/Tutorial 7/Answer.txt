@@ -1,0 +1,9 @@
+4.
+a. Unsorted array. O(n) quick-select
+b. AVL Tree
+
+5.
+Iterate through array while maintaining a sorted 
+array of every element visited
+If tooth < 0, note down current house number, compare it with max and
+delete the lowest value in the sorted array and continue.
