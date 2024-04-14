@@ -136,15 +136,20 @@ public class MazeSolver implements IMazeSolver {
 
 	@Override
 	public Integer bonusSearch(int startRow, int startCol, int endRow, int endCol) throws Exception {
-		// TODO: Find minimum fear level given new rules.
+		// Use a possibilityTree to trace out all the path and find the shortest one?
 		return null;
 	}
 
 	@Override
 	public Integer bonusSearch(int startRow, int startCol, int endRow, int endCol, int sRow, int sCol) throws Exception {
-		// TODO: Find minimum fear level given new rules and special room.
+		// Use a possibilityTree to trace out all the path and find the shortest one?
 		return null;
 	}
+
+	// Bonus part 3
+	// No, because bellmanFord assume that the weights are constant but that's not the case in bonus
+	// No since the weight of the next edge still depends on the fear level
+	// Condition: the weights are always constant between any two nodes
 
 	public static void main(String[] args) {
 		try {
