@@ -1,0 +1,9 @@
+1. Sort the edges
+2. Iterate through the edges from smallest to largest
+3. If the two node is already in the same union then continue
+4. Else union the two nodes of the edges
+5. The minimax distance from all the nodes in the larger union to
+the smaller union and vice versa is the weight of the edge
+
+Time: O(ElogE)
+Space: O(V^2)
