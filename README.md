@@ -1,0 +1,2 @@
+# USAGE
+CS2040S was very challenging for me. I stared at my screen for 7-8 hours at times, trying to figure out what went wrong. I put this up to make it easier for anyone who's struggling to test their codes against a working solution (as of AY23/24 Sem 2). This is only meant for **testing purposes** when you are stuck (for at least 3-4 hours) and must **not** be copy-pasted and submitted as your own work.
