@@ -1,0 +1,58 @@
+1.
+a. 
+Create a DAG where each node is an order
+A directed edge is from A to B if order A can be 
+be completed before order B
+
+Do a DFS with the lexicogrphically smallest
+order being consider first at every recursion step
+
+Connect a super node to all nodes that can go first and
+start the DFS there
+
+A search is complete if all nodes are visited exactly once
+
+b.
+DFS as before but keep track of the time slot and cannot
+go to a node if the time to serve that dish already passed
+
+2.
+a.
+Bellman Ford on the graph and store the parents of each node
+Visit each node and find the shortest path to it using the
+parents data.
+With all the shortest path, store it in the routing table
+
+b.
+Update the table from this and other
+
+c.
+Yes
+Time to fix: O(V)
+
+d.
+No.
+Ignore its own estimate, set it's own estimate to the minimum
+from all neighbors + 1
+
+3.
+Create a DAG
+and find the longest path from node with 0 in-degree
+(i.e. no pre requisite)
+
+4.
+Dynamic programming problem
+Base case: alr at destination -> min cost = 0
+
+Previous station, calculate minimum cost to get from
+station to the destination, assuming we have k petrol left.
+
+Prev prev station, calculate the same thing but with answer
+from previous station given the petrol left when the car 
+arrives at the station
+
+Recursively do until the start.
+
+5.
+Maximum spanning tree then place camera in all nodes not in tree
+

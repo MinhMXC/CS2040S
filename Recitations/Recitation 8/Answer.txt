@@ -1,0 +1,32 @@
+1.
+a.
+Each node store info of the possible edges to go to for each
+direction North, South, East, West that the car is showing
+
+Going Straight => weight = 0
+Going Right => weight = 1
+
+Dijkstra's algorithm
+
+
+2.
+a. BFS since graph in unweighted
+b. Modify graph such that for each node, we create two nodes,
+one node for even day, one node for odd day. Even node contains even
+edges, odd node contains odd edges
+
+BFS since graph is also unweighted
+
+c.
+Easy solution: run BFS two time for odd and even start
+
+One BFS Time: 
+Create a dummy node that connects to even and odd start
+And start there instead
+
+d.
+Manon can stay overnight:
+Simply connect even and odd edge
+
+
+3.

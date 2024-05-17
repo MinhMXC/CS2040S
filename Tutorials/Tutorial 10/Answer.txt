@@ -1,0 +1,42 @@
+1.
+a. O(n)
+b. 
+Union: O(n)
+Find: O(n)
+m Union and Find: O(mlogn) //ask later
+
+c.
+HashMap<String, PriorityQueue<Task>> hm
+
+O(1)
+getNextTask(name) = hm.get(name).top();
+
+O(logn)
+executeNextTask(name) = hm.get(name).remove();
+
+O(n)
+merge(name1, name2, name3) = 
+hm.put(name3, list out name1 and name2 content and build a new priority queue)
+hm.remove(name1)
+hm.remove(name2)
+
+2.
+a. CE, AB, DG, FG, CD, BD
+b. O(ElogV)
+
+3. // why O(V + E) // why 2V
+Base case 1 edge: connect the two edge together
+Wouldn't work? No guarantee that the median edge is
+in the MST
+
+4.
+Run prim but with all the powerplants being
+the initial node instead.
+OR
+Connect all powerplants to a parent node then
+run Prim on that parent node.
+
+5.
+
+6.
+Insert the biggest edge into each cycle

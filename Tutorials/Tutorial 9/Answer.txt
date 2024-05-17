@@ -1,0 +1,36 @@
+1.
+a. 
+BellmanFord
+multiply the costs instead of summing them
+relax if result is longer instead of shorter
+modify initial value to be 0 instead of INF
+
+b.
+1. Map each node weight: weight -> 1 - weight
+2. Dijkstra -> shortest path = safest path
+
+1. Take log of every node
+
+2.
+1. Toposort the graph
+2. relax all edges of nodes in topological order
+
+3.
+a. Negative weight graph
+b. Tree and DAG because can just do BFS or 1-pass BellmanFord
+
+4.
+a.
+1. Do Dijkstra on the work node to find the minimum path from work
+to all other nodes
+2. Do Dijkstra on the home node on the reversed graph to find the
+minimum path from all other nodes to home
+3. Sort all edges
+4. For every edges u -> v, query whether the cost of
+work -> u -> v -> home is possible. Return if possible continue if not
+
+b. // how does the forcing work
+1. Make 3 duplicates of the graph
+2. Make it so that it forces a node to go through an edge of at least k
+3. Binary Search
+4. Since there are 3 graph the 2nd highest weight is guaranteed to be k

@@ -1,3 +1,71 @@
+Solution 1 Modified Shortest Path:
+Inequality:
+est[v] >= max(est[u], w)
+
+Relax:
+if (est[v] > max(est[u], w)
+ then est[v] = max[est[u], w)
+ 
+Algorithm: Dijkstra, max edge weight cannot decrease
+
+Query
+Time: O(ElogV)
+Space: O(V)
+
+Solution 2 Solution 1 Cached:
+Run Dijkstra for every vertices
+Preprocess:
+Time: O(VElogV)
+Space: O(V^2)
+
+Query:
+Time: O(1)
+Space: O(V^2)
+
+Solution 3 Floyd-Warshall:
+Preprocess:
+Time: O(V^3)
+Space: O(V^2)
+
+Query:
+Time: O(1)
+Space: O(V^2)
+
+Solution 4 Minimum Spanning Tree:
+Minimum Spanning Tree guarantees the largest weighted
+edge is not included in the path
+
+No preprocess
+Query:
+Time: O(ElogV)
+Space: O(V)
+
+Solution 5 Preprocessed MST:
+Preprocess
+Time: O(ElogV)
+Space: O(V)
+
+Solution 6 Delete Edges:
+Sort the edges in ascending order
+Binary search:
+Select mid
+Delete all edges greater than mid
+If exist a path recurse left
+Else recurse right
+
+Query
+Time: O((V + E)logk) k = max weight - min weight
+Space: O(E)
+
+Solution 7 Preprocessed Solution 6:
+Preprocess:
+Build k graphs
+For each graph find nodes that are in the same connect components
+
+Query:
+Binary search the k graphs and find the lowest graph that
+the two nodes is connected
+
 1. Sort the edges
 2. Iterate through the edges from smallest to largest
 3. If the two node is already in the same union then continue
